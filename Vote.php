@@ -8,6 +8,9 @@ class Vote{
             if (Database::executeData($sql)){
                 $sql = 'delete from post_votes where post_id = ' . $post_id . ' and author_id = ' . $author;
                 Database::executeData($sql);
+
+                $sql = 'update users set post_votes = post_votes - 1 where user_id = ' . $author;
+                Database::executeData($sql);
             }
             return -1;
         }elseif (Vote::getPostVote($post_id, $author) == 0){
@@ -15,12 +18,18 @@ class Vote{
             if (Database::executeData($sql)){
                 $sql = 'update post_votes set type = 1 where post_id = ' . $post_id . ' and author_id = ' . $author;
                 Database::executeData($sql);
+
+                $sql = 'update users set post_votes = post_votes + 2 where user_id = ' . $author;
+                Database::executeData($sql);
                 }
             return 2;
         }else{
             $sql = 'update posts set votes = votes + 1 where post_id = '. $post_id;
             if (Database::executeData($sql)){
                 $sql = 'insert into post_votes (post_id, author_id, type) values (' . $post_id . ', ' . $author . ', 1);';
+                Database::executeData($sql);
+
+                $sql = 'update users set post_votes = post_votes + 1 where user_id = ' . $author;
                 Database::executeData($sql);
             }
             return 1;
@@ -33,6 +42,9 @@ class Vote{
             if (Database::executeData($sql)){
                 $sql = 'delete from comment_votes where comment_id = ' . $comment_id . ' and author_id = ' . $author;
                 Database::executeData($sql);
+
+                $sql = 'update users set comment_votes = comment_votes - 1 where user_id = ' . $author;
+                Database::executeData($sql);
             }
             return -1;
         }elseif (Vote::getCommentVote($comment_id, $author) == 0){
@@ -40,12 +52,18 @@ class Vote{
             if (Database::executeData($sql)){
                 $sql = 'update comment_votes set type = 1 where comment_id = ' . $comment_id . ' and author_id = ' . $author;
                 Database::executeData($sql);
+
+                $sql = 'update users set comment_votes = comment_votes + 2 where user_id = ' . $author;
+                Database::executeData($sql);
             }
             return 2;
         }else{
             $sql = 'update comments set votes = votes + 1 where comment_id = '. $comment_id;
             if (Database::executeData($sql)){
                 $sql = 'insert into comment_votes (comment_id, author_id, type) values (' . $comment_id . ', ' . $author . ', 1);';
+                Database::executeData($sql);
+
+                $sql = 'update users set comment_votes = comment_votes + 1 where user_id = ' . $author;
                 Database::executeData($sql);
             }
             return 1;
@@ -58,6 +76,9 @@ class Vote{
             if (Database::executeData($sql)){
                 $sql = 'delete from comment_votes where comment_id = ' . $comment_id . ' and author_id = ' . $author;
                 Database::executeData($sql);
+
+                $sql = 'update users set comment_votes = comment_votes + 1 where user_id = ' . $author;
+                Database::executeData($sql);
             }
             return 1;
         }elseif (Vote::getCommentVote($comment_id, $author) == 1){
@@ -65,12 +86,18 @@ class Vote{
             if (Database::executeData($sql)){
                 $sql = 'update comment_votes set type = 0 where comment_id = ' . $comment_id . ' and author_id = ' . $author;
                 Database::executeData($sql);
+
+                $sql = 'update users set comment_votes = comment_votes - 2 where user_id = ' . $author;
+                Database::executeData($sql);
             }
             return -2;
         }else{
             $sql = 'update comments set votes = votes - 1 where comment_id = '. $comment_id;
             if (Database::executeData($sql)){
                 $sql = 'insert into comment_votes (comment_id, author_id, type) values (' . $comment_id . ', ' . $author . ', 0);';
+                Database::executeData($sql);
+
+                $sql = 'update users set comment_votes = comment_votes - 1 where user_id = ' . $author;
                 Database::executeData($sql);
             }
             return -1;
@@ -83,6 +110,9 @@ class Vote{
             if (Database::executeData($sql)){
                 $sql = 'delete from post_votes where post_id = ' . $post_id . ' and author_id = ' . $author;
                 Database::executeData($sql);
+
+                $sql = 'update users set post_votes = post_votes + 1 where user_id = ' . $author;
+                Database::executeData($sql);
             }
             return 1;
         }elseif (Vote::getPostVote($post_id, $author) == 1){
@@ -90,12 +120,18 @@ class Vote{
             if (Database::executeData($sql)){
                 $sql = 'update post_votes set type = 0 where post_id = ' . $post_id . ' and author_id = ' . $author;
                 Database::executeData($sql);
+
+                $sql = 'update users set post_votes = post_votes - 2 where user_id = ' . $author;
+                Database::executeData($sql);
             }
             return -2;
         }else{
             $sql = 'update posts set votes = votes - 1 where post_id = '. $post_id;
             if (Database::executeData($sql)){
                 $sql = 'insert into post_votes (post_id, author_id, type) values (' . $post_id . ', ' . $author . ', 0);';
+                Database::executeData($sql);
+
+                $sql = 'update users set post_votes = post_votes - 1 where user_id = ' . $author;
                 Database::executeData($sql);
             }
             return -1;
