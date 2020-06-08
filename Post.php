@@ -12,6 +12,7 @@ class Post{
     private $comments;
     private $votes;
     private $tags;
+    private $author_id;
     public function __construct($id)
     {
         $this->id = $id;
@@ -24,6 +25,7 @@ class Post{
         $this->comments = Comment::getCommentCount($id);
         $this->votes = $response['votes'];
         $this->tags = Tag::getTags($id);
+        $this->author_id = $response['user_id'];
     }
 
     public static function updatePost($post_id, $author, $title, $content){
@@ -115,6 +117,24 @@ class Post{
         }
         return $posts;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorId()
+    {
+        return $this->author_id;
+    }
+
+    /**
+     * @param mixed $author_id
+     */
+    public function setAuthorId($author_id)
+    {
+        $this->author_id = $author_id;
+    }
+
+
 
     public function getTags()
     {

@@ -214,7 +214,7 @@ include_once 'sessionCheck.php';
                 <div class="w-100">
                     <div class="d-flex w-100 justify-content-between content">
                         <p class="mb-1"><?php echo $current_post->getContent(); ?></p>
-                        <small><?php echo $current_post->getAuthor(); ?>
+                        <small><a href="profile.php?id=<?php echo $current_post->getAuthorId()?>"><?php echo $current_post->getAuthor(); ?></a>
                             <small><?php echo $current_post->getDate() ?></small>
                             <div class="mt-5">
                                 <?php
@@ -309,7 +309,7 @@ include_once 'sessionCheck.php';
                         <div class="w-100">
                             <div class="d-flex w-100 justify-content-between content">
                                 <p class="mb-1"><?php echo $comment_content; ?></p>
-                                <small><?php echo $comment_author; ?>
+                                <small><a href="profile.php?id=<?php echo $comment_author_id?>"><?php echo $comment_author; ?></a>
                                     <small><?php echo $comment_date; ?></small>
                                     <?php
                                         if (Comment::isMyComment($_SESSION['user']['id'], $comment_id)){
